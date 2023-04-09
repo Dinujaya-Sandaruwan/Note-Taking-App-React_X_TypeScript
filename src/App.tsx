@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import NewNote from "./components/NewNote";
 import { useLocalStorage } from "./Hooks/useLocalStorage";
 import { v4 as uuidV4 } from "uuid";
+import NoteList from "./components/NoteList";
 
 export type NoteData = {
 	title: string;
@@ -35,7 +36,7 @@ function App() {
 	const [notes, setNotes] = useLocalStorage<RawNote[]>("NOTES", []);
 	const [tags, setTags] = useLocalStorage<Tag[]>("TAGS", []);
 
-	const noteWithTags = useMemo(() => {
+	const notesWithTags = useMemo(() => {
 		return notes.map((note) => {
 			return {
 				...note,
@@ -60,7 +61,10 @@ function App() {
 	return (
 		<Container className="my-4">
 			<Routes>
-				<Route path="/" element={<h1>Home</h1>} />
+				<Route
+					path="/"
+					element={<NoteList notes={notesWithTags} availableTags={tags} />}
+				/>
 				<Route
 					path="/new"
 					element={
