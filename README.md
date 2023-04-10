@@ -10,6 +10,8 @@ This is an advanced note-taking app built with React and TypeScript. It includes
 |----------|----------|
 | ![Image 1](https://user-images.githubusercontent.com/88492493/230847001-2a1cdb1e-8dda-4e77-ad4a-1f3278c55371.png) | ![Image 2](https://user-images.githubusercontent.com/88492493/230847166-4b5244d1-054a-4971-b1a8-6f5bd2e6396c.png) |
 
+## [Live Preview (markdown-notes.dinujaya.com)](https://markdown-notes.dinujaya.com/)
+
 ## Features
 
 - Categories: Organize your notes into categories for better organization and management.
@@ -53,3 +55,5 @@ This project is licensed under the [MIT License](LICENSE).
 ## Acknowledgements
 
 Special thanks to [Web Dev Simplified](https://www.youtube.com/@WebDevSimplified) for the tutorial that inspired this project.
+
+[![Web Dev Simplified](https://user-images.githubusercontent.com/88492493/230849214-37e13f1d-a7fb-442e-b20d-6cc103d2b593.jpg)](https://www.youtube.com/watch?v=j898RGRw0b4)
