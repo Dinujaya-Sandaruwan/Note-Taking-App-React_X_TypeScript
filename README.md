@@ -35,7 +35,7 @@ This is an advanced note-taking app built with React and TypeScript. It includes
 1. Clone the repository to your local machine.
 2. Install the dependencies using `npm install` or `yarn install`.
 3. Run the development server using `npm run dev` or `yarn dev`.
-4. Open your web browser and go to `http://localhost:3000` to see the app in action.
+4. Open your web browser and go to `http://localhost:5173` to see the app in action.
 5. Use the app to create, edit, and manage your notes with categories, markdown support, and filtering.
 
 ## Building the Project
