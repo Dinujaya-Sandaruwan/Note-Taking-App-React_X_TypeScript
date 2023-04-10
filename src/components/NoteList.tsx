@@ -6,6 +6,7 @@ import {
 	Col,
 	Form,
 	FormControl,
+	Modal,
 	Row,
 	Stack,
 } from "react-bootstrap";
@@ -18,6 +19,8 @@ import styles from "../styles/NoteList.module.css";
 type NodeListProps = {
 	availableTags: Tag[];
 	notes: Note[];
+	onDeleteTag: (id: string) => void;
+	onUpdateTag: (id: string, label: string) => void;
 };
 
 type SimplifiedNote = {
@@ -26,9 +29,23 @@ type SimplifiedNote = {
 	id: string;
 };
 
-function NoteList({ availableTags, notes }: NodeListProps) {
+type EditTagsModelProps = {
+	show: boolean;
+	availableTags: Tag[];
+	handleClose: () => void;
+	onDeleteTag: (id: string) => void;
+	onUpdateTag: (id: string, label: string) => void;
+};
+
+function NoteList({
+	availableTags,
+	notes,
+	onUpdateTag,
+	onDeleteTag,
+}: NodeListProps) {
 	const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
 	const [title, setTitle] = useState("");
+	const [editTagsModelIsOpen, setEditTagsModelIsOpen] = useState(false);
 
 	const filteredNotes = useMemo(() => {
 		return notes.filter((note) => {
@@ -54,7 +71,12 @@ function NoteList({ availableTags, notes }: NodeListProps) {
 						<Link to="/new">
 							<Button variant="primary">Create</Button>
 						</Link>
-						<Button variant="outline-secondary">Deit Tags</Button>
+						<Button
+							variant="outline-secondary"
+							onClick={() => setEditTagsModelIsOpen(true)}
+						>
+							Edit Tags
+						</Button>
 					</Stack>
 				</Col>
 			</Row>
@@ -102,6 +124,13 @@ function NoteList({ availableTags, notes }: NodeListProps) {
 					</Col>
 				))}
 			</Row>
+			<EditTagsModal
+				onDeleteTag={onDeleteTag}
+				onUpdateTag={onUpdateTag}
+				show={editTagsModelIsOpen}
+				handleClose={() => setEditTagsModelIsOpen(false)}
+				availableTags={availableTags}
+			/>
 		</>
 	);
 }
@@ -137,5 +166,46 @@ function NoteCard({ id, title, tags }: SimplifiedNote) {
 				</Stack>
 			</Card.Body>
 		</Card>
+	);
+}
+
+function EditTagsModal({
+	availableTags,
+	show,
+	handleClose,
+	onDeleteTag,
+	onUpdateTag,
+}: EditTagsModelProps) {
+	return (
+		<Modal show={show} onHide={handleClose}>
+			<Modal.Header closeButton>
+				<Modal.Title>Edit Tags</Modal.Title>
+			</Modal.Header>
+			<Modal.Body>
+				<Form>
+					<Stack gap={2}>
+						{availableTags.map((tag) => (
+							<Row key={tag.id}>
+								<Col>
+									<Form.Control
+										type="text"
+										value={tag.label}
+										onChange={(e) => onUpdateTag(tag.id, e.target.value)}
+									/>
+								</Col>
+								<Col xs="auto">
+									<Button
+										onClick={() => onDeleteTag(tag.id)}
+										variant="outline-danger"
+									>
+										&times;
+									</Button>
+								</Col>
+							</Row>
+						))}
+					</Stack>
+				</Form>
+			</Modal.Body>
+		</Modal>
 	);
 }
